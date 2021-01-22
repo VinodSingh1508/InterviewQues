@@ -1,0 +1,25 @@
+How is the testing of the 'protected' method done?
+To test the protected method, the test class is declared in the same package as the target class.
+
+How is the testing of 'private' method done?
+There is no direct way for testing of the private method; hence manual testing is to be performed, or the method is changed to "protected" method.
+
+
+If the JUnit method's return type is 'string', what will happen?
+JUnit test methods are designed to return 'void'. So the execution will fail.
+
+What are the methods in fixtures?
+setup
+tearDown
+
+
+Mention what are parameterized tests?
+
+Parameterized tests enable developer to perform the same test over and again using different values.
+
+Explain how you can write a simple JUnit test case?
+
+Determine a subclass of TestCase
+To initialize object(s) under test, override the setup() method
+To release object(s) under test override the teardown() method
+Determine one or more public test XYZ() methods that exercise the objects under test and assert expected results.

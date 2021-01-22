@@ -1,0 +1,308 @@
+What is IOC or inversion of control? (answer)
+Answer: This Spring interview question is the first step towards the Spring framework and many interviewers start Spring interview from this question. As the name implies Inversion of the control means now we have inverted the control of creating the object from our own using new operator to container or framework.
+
+Now it’s the responsibility of the container to create an object as required. We maintain one XML file where we configure our components, services, all the classes, and their property. We just need to mention which service is needed by which component and container will create the object for us.
+
+This concept is known as dependency injection because all object dependency (resources) is injected into it by the framework.
+
+Example:
+  <bean id="createNewStock" 
+           class="springexample.stockMarket.CreateNewStockAccont"> 
+        <property name="newBid"/>
+ 
+  </bean>
+
+
+In this example, CreateNewStockAccont class contain getter and setter for newBid and container will instantiate newBid and set the value automatically when it is used. This whole process is also called wiring in Spring and by using annotations it can be done automatically by Spring, referred to as auto-wiring of bean in Spring.
+
+
+Explain the Spring Bean-LifeCycle.
+
+Ans: Spring framework is based on IOC so we call it as IOC container also So Spring beans reside inside the IOC container. Spring beans are nothing but Plain old java object (POJO).
+Following steps explain their life cycle inside the container.
+
+1. The container will look the bean definition inside the configuration file (e.g. bean.xml).
+
+2 using reflection container will create the object and if any property is defined inside the bean definition then it will also be set.
+
+3. If the bean implements the BeanNameAware interface, the factory calls setBeanName() passing the bean’s ID.
+
+4. If the bean implements the BeanFactoryAware interface, the factory calls setBeanFactory(), passing an instance of itself.
+
+5. If there are any BeanPostProcessors associated with the bean, their post- ProcessBeforeInitialization() methods will be called before the properties for the Bean are set.
+
+6. If an init() method is specified for the bean, it will be called.
+7. If the Bean class implements the DisposableBean interface, then the destroy() method will be called when the Application no longer needs the bean reference.
+
+8. If the Bean definition in the Configuration file contains a 'destroy-method' attribute, then the corresponding method definition in the Bean class will be called.
+
+
+What is Bean Factory, have you used XMLBeanFactory?
+Ans: BeanFactory is factory Pattern which is based on IOC design principles.it is used to make a clear separation between application configuration and dependency from actual code. The XmlBeanFactory is one of the implementations of Bean Factory which we have used in our project.
+
+The org.springframework.beans.factory.xml.XmlBeanFactory is used to create bean instance defined in our XML file.
+
+
+BeanFactory factory = new XmlBeanFactory(new FileInputStream("beans.xml"));
+
+Or
+
+ClassPathResource resorce = new ClassPathResource("beans.xml"); 
+XmlBeanFactory factory = new XmlBeanFactory(resorce);
+
+
+What are the difference between BeanFactory and ApplicationContext in Spring? (answer)
+Answer: This one is a very popular Spring interview question and often asks in an entry-level interview. ApplicationContext is the preferred way of using spring because of the functionality provided by it and the interviewer wanted to check whether you are familiar with it or not.
+
+ApplicationContext.
+
+BeanFactory
+Here we can have more than one config files possible | In this only one config file or .xml file
+Application contexts can publish events to beans that are registered as listeners | Don't support.
+Support internationalization (I18N) messages | It’s not
+Support application life-cycle events, and validation. | Doesn’t support.
+Supports many enterprise services such as JNDI access, EJB integration, remoting | Doesn’t support.
+
+
+
+hat is AOP?
+Answer: The core construct of AOP is the aspect, which encapsulates behaviors affecting multiple classes into reusable modules. AOP is a programming technique that allows a developer to modularize crosscutting concerns, that cuts across the typical divisions of responsibility, such as logging and transaction management. 
+
+Spring AOP, aspects are implemented using regular classes or regular classes annotated with the @Aspect annotation.
+
+
+Explain Advice?
+Answer: It’s an implementation of aspect; advice is inserted into an application at join points. Different types of advice include “around,” “before” and “after” advice
+
+
+What are the joint Point and point cut?
+Ans: This is not really a spring interview questions I would say an AOP one.  Similar to Object-oriented programming, AOP is another popular programming concept which complements OOPS. A join point is an opportunity within the code for which we can apply an aspect. In Spring AOP, a join point always represents a method execution.
+
+Pointcut: a predicate that matches join points. A pointcut is something that defines what join-points advice should be applied.
+
+
+
+Difference between @Autowired and @ Inject annotation in Spring?
+The @Autowired annotation is used for auto-wiring in Spring framework. If you don't know, autowiring is a process on which Spring framework figure out dependencies of a Spring bean, instead of you, a developer, explicitly specifying them in the application context file. You can annotate fields and constructor using @Autowired to tell Spring framework to find dependencies for you.
+
+The @Inject annotation also serves the same purpose, but the main difference between them is that @Inject is a standard annotation for dependency injection and @Autowired is spring specific.
+
+Since Spring is not the only framework which provides dependency injection, in the future if you change your container and moves to another DI framework like Google Guice, you need to reconfigure your application.
+
+You can potentially avoid that development effort by using standard annotations specified by JSR-330 e.g.  @Inject, @Named, @Qualifier, @Scope and @Singleton.
+
+A bean declared to be auto-wired using @Inject will work in both Google Guice and Spring framework, and potentially any other DI container which supports JSR-330 annotations.
+
+What are the different modules in spring?
+Answer: spring has seven core modules
+1.      The Core container module
+2.      Application context module
+3.      AOP module (Aspect Oriented Programming)
+4.      JDBC abstraction and DAO module
+5.      O/R mapping integration module (Object/Relational)
+6.      Web module
+7.      MVC framework module
+
+What is the difference between @Controller and @RestController in Spring MVC? (answer)
+Even though both are used to indicate that a Spring bean is a Controller in Spring MVC setup, @RestController is better when you are developing RESTful web services using Spring MVC framework. It's a combination of @Controller + @ResponseBody annotation which allows the controller to directly write the response and bypassing the view resolution process, which is not required for RESTful web service.
+
+It also instructs DispatcherServlet to use different HttpMessageConverters to represent the response in the format client is expecting e.g. HttpMessageJackson2Convert to represent response in JSON format and JAXB based message converts to generate XML response.
+
+Difference between @ReqeustParam and @PathVariable in Spring MVC?
+
+
+Difference between @Component, @Service, @Controller, and @Repositoring annotation in Spring MVC?
+From Spring 2.5 annotation-based dependency injection was introduced, which automatically scans and registers classes as Spring bean which is annotated using @Component annotation.
+
+This means you don't declare that bean using the <bean> tag and inject the dependency, it will be done automatically by Spring. This functionality was enabled and disabled using <context:component-scan> tag.
+
+Now that you know what does @Component annotation does let's see what does @Service, @Controller, and @Repository annotation do.
+
+They are nothing but the specialized form of @Component annotation for certain situations. Instead of using @Component on a controller class in Spring MVC, we use @Controller, which is more readable and appropriate.
+
+By using that annotation we do two things, first, we declare that this class is a Spring bean and should be created and maintained by Spring ApplicationContext, but also we indicate that its a controller in MVC setup. This latter property is used by web-specific tools and functionalities.
+
+How many bean scopes are supported by Spring?
+The Spring Framework supports five scopes. They are:
+
+Singleton: This provides scope for the bean definition to single instance per Spring IoC container.
+Prototype: This provides scope for a single bean definition to have any number of object instances.
+Request: This provides scope for a bean definition to an HTTP-request. 
+Session: This provides scope for a bean definition to an HTTP-session. 
+Global-session: This provides scope for a bean definition to an Global HTTP-session. 
+
+
+What is the Bean life cycle in Spring Bean Factory Container?
+Bean life cycle in Spring Bean Factory Container is as follows:
+
+The Spring container instantiates the bean from the bean’s definition in the XML file.
+Spring populates all of the properties using the dependency injection, as specified in the bean definition.
+The factory calls setBeanName() by passing the bean’s ID, if the bean implements the BeanNameAware interface.
+The factory calls setBeanFactory() by passing an instance of itself, if the bean implements the BeanFactoryAware interface.
+preProcessBeforeInitialization() methods are called if there are any BeanPostProcessors associated with the bean.
+If an init-method is specified for the bean, then it will be called.
+Finally, postProcessAfterInitialization() methods will be called if there are any BeanPostProcessors associated with the bean.
+
+
+
+
+
+What bean scopes are supported by Spring and what do they mean? Which is used by default?
+
+The Spring Framework supports following scopes:
+
+singleton (used by default): This means a single instance per Spring container; not thread-safe
+prototype: This means any number of object instances.
+request: This scopes a bean definition to an HTTP request. Only valid in the context of a web-aware Spring ApplicationContext.
+session: This scopes a bean definition to an HTTP session. Only valid in the context of a web-aware Spring ApplicationContext.
+global-session: This scopes a bean definition to a global HTTP session. Only valid in the context of a web-aware Spring ApplicationContext.
+
+What is dependency injection (DI)? What are the types of DI?
+
+Dependency injection is the concept where you do not create your objects but describe how they should be created, and then expect pre-created objects to be passed in. Likewise, you don’t directly connect your components together but describe which components are needed with either a configuration file or an annotation. The Spring container is responsible for the rest.
+DI can be either constructor based or setter based. Constructor based DI is accomplished when the container invokes a class constructor with a number of arguments, each representing a dependency on other classes. Setter based dependency injection is accomplished when the container calls setter methods on a bean after instantiating it.
+
+
+Describe the Spring bean lifecycle.
+
+The lifecycle of a Spring bean consists the following steps:
+
+Instantiation
+Properties population
+Call of setBeanName() method of BeanNameAware
+Call of setBeanFactory() method of BeanFactoryAware
+Call of setApplicationContext() of ApplicationContextAware
+Pre-initialization with BeanPostProcessor
+Call of afterPropertiesSet() method of InitializingBean
+Custom init method
+Post-initialization with BeanPostProcessor
+Bean is ready to use
+Call of destroy() method of DisposableBean
+Custom destroy method
+Numbers 11-12 are actual for all scopes except prototype, since Spring does not manage the complete lifecycle of a prototype bean: the container instantiates, configures, and otherwise assembles a prototype object and hands it to the client with no further record of that prototype instance.
+
+
+Which steps of beans lifecycle can be overridden or controlled?
+
+The init() method is called when the bean is loaded to the container via the init-method attribute in the xml configuration with the @PostConstruct annotation. The destroy() method is called when the bean is unloaded from the container, through the destroy-method attribute in the xml configuration with the @PreDestroy annotation. If a bean is a prototype-scoped, the client code must clean up objects and release expensive resources that the prototype beans are holding. To get the Spring container to release resources held by prototype-scoped beans, try using a custom BeanPostProcessor, which holds a reference to beans that need to be cleaned up.
+A developer can implement various interfaces to invoke specific behavior during a bean’s life cycle, such as InitializingBean and DisposableBean, as well as BeanNameAware, BeanFactoryAware and ApplicationContextAware.
+
+
+What is a Spring Bean Factory? What are some of the implementations available?
+
+A BeanFactory is the actual container which instantiates, configures and manages all Spring beans together with their dependencies. Bean factories are represented by the interface org.springframework.beans.factory.BeanFactory and its sub-interfaces including:
+
+ApplicationContext
+WebApplicationContext
+AutowireCapableBeanFactory
+All of which are implemented with:
+
+AnnotationConfigWebApplicationContext
+XmlWebApplicationContext
+ClassPathXmlApplicationContext
+FileSystemXmlApplicationContext
+It’s important to note that implementations can correspond to multiple interfaces.
+
+
+What is a Spring Application Context? What are some example usages of one?
+
+An ApplicationContext is an interface extending BeanFactory’s functionality. In addition to the BeanFactory’s methods, ApplicationContext provides the ability to:
+
+Load file resources by extending the ResourcePatternResolver interface
+Publish events to registered listeners (via the ApplicationEventPublisher interface)
+Resolve messages supporting internationalization (with the MessageSource interface).
+It’s read-only while the application is running.
+
+The easiest way to create an ApplicationContent instance is:
+
+ApplicationContext ctx = new FileSystemXmlApplicationContext("application.xml");
+Loading resources is done with:
+
+ctx.getResources(String locationPattern);
+ctx.getResource(String location);
+Publishing events is as simple as:
+
+ctx.publishEvent(ApplicationEvent event);
+ctx.publishEvent(Object event);
+Internationalization support messages can be done by:
+
+ctx.getMessage(String code, Object[] args, String defaultMessage, Locale locale);
+ctx.getMessage(String code, Object[] args, Locale locale);
+ctx.getMessage(MessageSourceResolvable resolvable, Locale locale);
+
+
+In the context of Spring, what is a “stereotype”? What are the existing stereotypes and what is the difference between them?
+
+Stereotype is a class-level annotation denoting the roles of types or methods in the overall architecture (at a conceptual level, rather than implementation). In Spring, these annotations live in the package org.springframework.stereotype.
+
+Currently, this package has the following annotations:
+
+@Component indicates that an annotated class is a “component”. Such classes are considered as candidates for auto-detection when using annotation-based configuration and classpath scanning.
+@Controller indicates that an annotated class is a “Controller” (e.g. a web controller).
+@Repository indicates that an annotated class is a “Repository”, originally defined by Domain-Driven Design (Evans, 2003) as “a mechanism for encapsulating storage, retrieval, and search behavior which emulates a collection of objects”.
+@Service indicates that an annotated class is a “Service”, originally defined by Domain-Driven Design (Evans, 2003) as “an operation offered as an interface that stands alone in the model, with no encapsulated state.” May also indicate that a class is a Business Service Facade (in the Core J2EE patterns sense) or something similar.
+These different types primarily allow a developer easily distinguish the purpose of the annotated classes. Starting with Spring 2.5, @Controller, @Repository and @Service serve as a specialization of @Component, allowing for implementation classes to be autodetected through classpath scanning.
+
+
+How do you load and inject properties into a Spring Bean?
+
+Let’s say we have a custom.properties file that defines a database connection timeout property called connection.timeout. To load this property into a Spring context, we need to define a propertyConfigurer bean:
+
+<bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+    <property name="location" value="custom.properties" />
+</bean>
+After that we can use Spring Expression Language to inject properties into other beans:
+
+<bean class="com.toptal.spring.ConnectionFactory">
+    <property name="timeout" value="${connection.timeout}"/>
+</bean>
+The same is available in the annotation based configuration, like so:
+
+@Value("${connection.timeout}") 
+private int timeout;
+
+
+What are the different ways to configure a class as Spring Bean?
+
+There are multiple ways to configure Spring Bean: XML configuration, Java based configuration and annotation based configuration.
+
+XML configuration
+<bean id="myBean" class="com.toptal.spring.MyBean"/>
+Java Based Configuration
+Any object can be put into Spring Context and be reused later as a usual bean.
+
+ConfigurableApplicationContext context;
+context.getBeanFactory().registerSingleton(name, obj);
+Annotation Based Configuration
+A Spring Bean can be configured with the @Bean annotation, which is used together with @Configuration classes.
+
+@Configuration
+public class MyConfiguration {
+
+	@Bean
+	public MyService getService(){
+		return new MyService();
+	}
+}
+The annotations @Component, @Service, @Repository and @Controller can also be used with classes to configure them as Spring Beans. In this case, the base package location has to be provided to scan for these classes, like so:
+
+<context:component-scan base-package="com.toptal.spring" />
+
+
+What is Bean wiring? How does autowiring work?
+
+Bean wiring is the process of injection Spring Bean dependencies while initializing. It’s usually best practice to wire all dependencies explicitly, (with XML configuration, for example), but Spring also supports autowiring with the @Autowired annotation. To enable this annotation we need to put the context:annotation-config element into the Spring configuration file. To avoid conflicts in bean mapping while autowiring, the bean name has to be provided with the @Qualifier annotation.
+
+There are different ways to autowire a Spring Bean:
+
+byName - to use this type setter method for dependency injection, the variable name should be the same in both the class where the dependency will be injected and in the Spring configuration file.
+byType - in order for this to function, there should be only one bean configured for that specific class.
+Via constructor - similar to byType, but type is applied to constructor arguments.
+Via autodetect - now obsolete, used in Spring 3.0 and earlier, this was used to autowire by constructor or byType.
+
+
+Which dependency injection method is better: Constructor-based or setter-based?
+
+You can use both Constructor-based and Setter-based Dependency Injection. The best solution is using constructor arguments for mandatory dependencies and setters for optional dependencies
+
+

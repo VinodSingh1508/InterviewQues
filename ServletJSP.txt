@@ -1,0 +1,72 @@
+What is JSESSIONID in Java? When does JSESSIONID gets created ?
+One of my favourite Servlet JSP Interview question for 2 to 4 years experience programmers on web development. JSESSION id is a cookie which is used to manage session in Java web application. JSESSIONID is created by Web Container whenever a new session is created.
+
+
+What is difference between include action and include directive in JSP?
+Another very popular JSP Interview questions, mostly asked to 2 to 3 years experienced J2EE programmer. There are couple of differences, most important of them is that include action is request  time inclusion while include directive is translation time inclusion of another resource e.g. JSP or html pages. This questions is also asked as difference between file include and page include. See Include action vs Include directive for more differences.
+Include Directive	Include Action
+Includes content at page translation time	Includes content at page request time
+Preferred in Static Pages	Preferred in Dynamic Pages
+Includes Original content of the page	Does not include Original content of the page
+Cannot invoke include() method	Can invoke include() method
+Page size can be increased in the run-time	Page size is fixed
+
+Difference between sendredirect and forward in Servlet ?
+
+How do you define application wide error page in JSP?
+Almost in every Servlet JSP interview you will see question from error handling. You can define two kinds of error pages in Java web application, one is using tag <error-page> in web.xml and other is by using error page JSP which uses isErrorpage to declare that this jsp page can be used as error page. Other JSP uses that page by using attribute errorpage="error.jsp". Whenever you get an unhandled exception in JSP, request will be routed to error page. See How to use error page in JSP for detailed answer of this question.
+
+
+What are the different Session Tracking Techniques?
+
+Answer:
+
+There are basically four types of techniques which are given below:
+
+a) Cookies: Cookies are small information which is added to multiple client requests.
+
+Example: One request comes to the server, the server adds some cookies with the response, now when again the same client sends the request to the server, the server recognizes the user.
+
+b) Hidden Form Field: Here we use a hidden text field for maintaining the state of the user.
+
+c) URL Rewriting: Here we give an extra link for the next servlet to be mapped.
+
+d) Http Session: Here a specific ID is generated for each user, so a server can recognize the user.
+
+
+Mention the Implicit Objects in a JSP.
+Request
+Response
+Application
+Exception
+Config
+Page
+Session
+PageContext
+Out
+
+Can you stop Multiple Submits to a Web Page that are initiated by clicking to refresh button?
+
+Ans: Yes, This issue can be solved by using a Post/Redirect/Get or a PRG pattern.
+
+A form filed by the user gets submitted to the server using POST/GET method.
+The state in the database and business model are updated.
+A redirect response is used to reply by the servlet for a view page.
+A view is loaded by the browser using the GET command and no user data is sent.
+This is safe from multiple submits as it is a separate JSP page.
+
+
+What are the different Life-Cycle methods?
+
+Ans: The different Life-Cycle Methods are as follows:
+
+jspInit()
+_jspService()
+jspDestroy
+jspInit(): Container calls jspInit() method to initialize servlet instance. It is called once for the servlet instance and preceded every other method.
+
+_jspService(): Container calls _jspService() method for each request and passes it on to the objects.
+
+jspDestroy(): Container calls the jspDestroy() just before destruction of the instance.
+
+

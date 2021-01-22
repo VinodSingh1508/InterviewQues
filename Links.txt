@@ -1,0 +1,37 @@
+corejava
+	https://www.java67.com/2012/09/top-10-tricky-java-interview-questions-answers.html
+	https://www.softwaretestinghelp.com/core-java-interview-questions/
+	https://www.edureka.co/blog/interview-questions/java-interview-questions/
+jsp
+	https://www.edureka.co/blog/interview-questions/jsp-interview-questions/
+Spring
+	https://www.toptal.com/spring/interview-questions
+	https://www.edureka.co/blog/interview-questions/spring-interview-questions/
+Maven
+	https://www.guru99.com/maven-interview-questions.html
+	https://www.edureka.co/blog/interview-questions/maven-interview-questions/
+SQL
+	https://www.guru99.com/sql-interview-questions-answers.html
+Mongo
+	https://intellipaat.com/blog/interview-question/mongodb-interview-questions/
+	https://www.javatpoint.com/mongodb-interview-questions
+Hibernate
+	https://javarevisited.blogspot.com/2013/05/10-hibernate-interview-questions-answers-java-j2ee-senior.html#axzz6e8oApCA1
+	https://www.java67.com/2016/02/top-20-hibernate-interview-questions.html
+	https://www.monsterindia.com/career-advice/top-10-tricky-hibernate-interview-questions-that-you-should-know-7860.html
+Boot
+	https://dzone.com/articles/top-10-spring-boot-interview-questions
+	https://www.edureka.co/blog/interview-questions/spring-boot-interview-questions/
+Rest
+	https://www.softwaretestinghelp.com/restful-web-services-interview-question/
+	https://www.guru99.com/rest-api-interview-question-answers.html	
+Microservice
+	https://www.lambdatest.com/blog/top-29-microservices-interview-questions-for-2019/
+	https://www.guru99.com/microservices-interview-questions.html
+Junit
+	https://career.guru99.com/top-11-junit-interview-questions/
+	https://www.javatpoint.com/junit-interview-questions
+
+
+Need more questions on -
+	Boot, 

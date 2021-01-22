@@ -1,0 +1,866 @@
+Topics :- Core Java, Spring, SpringBoot, SQL, Hibernate, Rest, Microservice, Servlet/JSP
+		Junit, Maven, Mongo, 
+Core Java:	
+	What are Marker Interface? Why do we need them?
+	CopyOnWriteAyyaylist
+
+	What does the following Java program print?
+	public class Test {
+	    public static void main(String[] args) {
+	        System.out.println(Math.min(Double.MIN_VALUE, 0.0d));
+	    }
+	}
+		Unlike the Integer, where MIN_VALUE is negative, both the MAX_VALUE and MIN_VALUE of the Double class are positive numbers. 
+		The Double.MIN_VALUE is 2^(-1074), a double constant whose magnitude is the least among all double values. 
+		So unlike the obvious answer, this program will print 0.0 because Double.MIN_VALUE is greater than 0.
+	What will happen if you put return statement or System.exit () on try or catch block? Will finally block execute?
+		Finally block will execute even if you put a return statement in the try block or catch block but finally block won't run if you call System.exit() 
+		from try or catch block.
+	Question: Can you override a private or static method in Java?
+		You can not override a private or static method in Java, if you create a similar method with same return type and same method arguments 
+		in child class then it will hide the superclass method, this is known as method hiding.
+	What do the expression 1.0 / 0.0 will return? will it throw Exception? any compile time error?
+		It will not throw ArithmeticExcpetion and return Double.INFINITY.
+		The comparison x == Double.NaN always evaluates to false, even if x itself is a NaN. 
+		To test if x is a NaN, one should use the method call Double.isNaN(x) to check if given number is NaN or not.
+	What will happen if we put a key object in a HashMap which is already there?
+		If you put the same key again then it will replace the old mapping because HashMap doesn't allow duplicate keys. 
+		The Same key will result in the same hashcode and will end up at the same position in the bucket.
+		Each bucket contains a linked list of Map.Entry object, which contains both Key and Value. 
+		Now Java will take the Key object from each entry and compare with this new key using equals() method, 
+		if that return true then value object in that entry will be replaced by new value.
+	What is deadlock and race conditions.
+	How do you ensure that N thread can access N resources without deadlock?
+		The key point here is ordering, if you acquire resources in a particular order and release resources in the reverse order you can prevent deadlock.
+	How Can You Make a Class Immutable?
+		Declare the class as final so it can’t be extended.
+		Make all fields private so that direct access is not allowed.
+		Don’t provide setter methods for variables
+		Make all mutable fields final so that it’s value can be assigned only once.
+		Initialize all the fields via a constructor performing a deep copy.
+		Perform cloning of objects in the getter methods to return a copy rather than returning the actual object reference.
+	How does Java enable high performance?
+	What is JIT compiler in Java?
+		JIT stands for Just-In-Time compiler in Java. It is a program that helps in converting the Java bytecode into instructions 
+		that are sent directly to the processor. By default, the JIT compiler is enabled in Java and is activated whenever a Java method is invoked. 
+		The JIT compiler then compiles the bytecode of the invoked method into native machine code, compiling it “just in time” to execute. 
+		Once the method has been compiled, the JVM summons the compiled code of that method directly rather than interpreting it. 
+		This is why it is often responsible for the performance optimization of Java applications at the run time.
+	Difference between HashMap and HashTable.
+		HashMap | HashTable
+		Methods are not synchronized | Key methods are synchronized
+		Not thread safety | Thread safety
+		Iterator is used to iterate the values | Enumerator is used to iterate the values
+		Allows one null key and multiple null values | Doesn’t allow anything that is null
+		Performance is high than HashTable | Performance is slow
+	Difference between HashSet and TreeSet.
+		HashSet | TreeSet
+		Inserted elements are in random order | Maintains the elements in the sorted order
+		Can able to store null objects | Couldn’t store null objects
+		Performance is fast | Performance is slow
+	What are the types of Exceptions?
+		There are two types of Exceptions.
+		a) Checked Exception:
+		These exceptions are checked by the compiler at the time of compilation. 
+		Classes that extend Throwable class except Runtime exception and Error are called checked Exception.
+		Checked Exceptions must either declare the exception using throws keyword (or) surrounded by appropriate try/catch.
+		For Example, ClassNotFound Exception
+		b) Unchecked Exception:
+		These exceptions are not checked during the compile time by the compiler.  
+		The compiler doesn’t force to handle these exceptions. It includes:
+		For Example, Arithmetic Exception, ArrayIndexOutOfBounds Exception
+	What are the differences between Heap and Stack Memory in Java?
+		The major difference between Heap and Stack memory are:
+		Features	Stack	Heap
+		Memory	Stack memory is used only by one thread of execution.	Heap memory is used by all the parts of the application.
+		Access	Stack memory can’t be accessed by other threads.	Objects stored in the heap are globally accessible.
+		Memory Management	Follows LIFO manner to free memory.	Memory management is based on the generation associated with each object.
+		Lifetime	Exists until the end of execution of the thread.	Heap memory lives from the start till the end of application execution.
+		Usage	Stack memory only contains local primitive and reference variables to objects in heap space.	Whenever an object is created, it’s always stored in the Heap space.
+	What is a classloader in Java?
+		The Java ClassLoader is a subset of JVM (Java Virtual Machine) that is responsible for loading the class files. 
+		Whenever a Java program is executed it is first loaded by the classloader. Java provides three built-in classloaders:
+		Bootstrap ClassLoader
+		Extension ClassLoader
+		System/Application ClassLoader
+
+
+Spring 
+	What is dependency injection (DI)? What are the types of DI?
+		Dependency injection is the concept where you do not create your objects but describe how they should be created, 
+		and then expect pre-created objects to be passed in. Likewise, you don’t directly connect your components together but describe which components 
+		are needed with either a configuration file or an annotation. The Spring container is responsible for the rest.
+		DI can be either constructor based or setter based. Constructor based DI is accomplished when the container invokes a 
+		class constructor with a number of arguments, each representing a dependency on other classes. 
+		Setter based dependency injection is accomplished when the container calls setter methods on a bean after instantiating it.
+	What is IOC or inversion of control?
+		As the name implies Inversion of the control means now we have inverted the control of creating the object from our own 
+		using new operator to container or framework. Now it’s the responsibility of the container to create an object as required. 
+		We maintain one XML file where we configure our components, services, all the classes, and their property. 
+		We just need to mention which service is needed by which component and container will create the object for us.
+		This concept is known as dependency injection because all object dependency (resources) is injected into it by the framework.
+		Example:
+		  <bean id="createNewStock" class="springexample.stockMarket.CreateNewStockAccont"> 
+		        <property name="newBid"/>
+ 
+		  </bean>
+		In this example, CreateNewStockAccont class contain getter and setter for newBid and container will instantiate newBid 
+		and set the value automatically when it is used. This whole process is also called wiring in Spring and by using annotations 
+		it can be done automatically by Spring, referred to as auto-wiring of bean in Spring.
+	Which dependency injection method is better: Constructor-based or setter-based?
+		You can use both Constructor-based and Setter-based Dependency Injection. The best solution is using constructor arguments for mandatory dependencies 
+		and setters for optional dependencies
+	How do you load and inject properties into a Spring Bean?
+		Let’s say we have a custom.properties file that defines a database connection timeout property called connection.timeout. 
+		To load this property into a Spring context, we need to define a propertyConfigurer bean:
+
+		<bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+    			<property name="location" value="custom.properties" />
+		</bean>
+		After that we can use Spring Expression Language to inject properties into other beans:
+		<bean class="com.toptal.spring.ConnectionFactory">
+    			<property name="timeout" value="${connection.timeout}"/>
+		</bean>
+
+		The same is available in the annotation based configuration, like so:
+
+		@Value("${connection.timeout}") 
+		private int timeout;
+	What are the different ways to configure a class as Spring Bean?
+		There are multiple ways to configure Spring Bean: XML configuration, Java based configuration and annotation based configuration.
+
+		XML configuration
+		<bean id="myBean" class="com.toptal.spring.MyBean"/>
+
+		Java Based Configuration
+		Any object can be put into Spring Context and be reused later as a usual bean.
+		ConfigurableApplicationContext context;
+		context.getBeanFactory().registerSingleton(name, obj);
+
+		Annotation Based Configuration
+		A Spring Bean can be configured with the @Bean annotation, which is used together with @Configuration classes.
+
+		@Configuration
+		public class MyConfiguration {
+			@Bean
+			public MyService getService(){
+				return new MyService();
+			}
+		}
+
+		The annotations @Component, @Service, @Repository and @Controller can also be used with classes to configure them as Spring Beans. 
+		In this case, the base package location has to be provided to scan for these classes, like so:
+		<context:component-scan base-package="com.toptal.spring" />
+	Explain the Spring Bean-LifeCycle.
+		Spring beans reside inside the IOC container. Spring beans are nothing but Plain old java object (POJO).
+		Following steps explain their life cycle inside the container.
+		1. The container will look the bean definition inside the configuration file (e.g. bean.xml).
+		2 using reflection container will create the object and if any property is defined inside the bean definition then it will also be set.
+		3. If the bean implements the BeanNameAware interface, the factory calls setBeanName() passing the bean’s ID.
+		4. If the bean implements the BeanFactoryAware interface, the factory calls setBeanFactory(), passing an instance of itself.
+		5. If there are any BeanPostProcessors associated with the bean, their post- ProcessBeforeInitialization() methods will be called before the properties for the Bean are set.
+		6. If an init() method is specified for the bean, it will be called.
+		7. If the Bean class implements the DisposableBean interface, then the destroy() method will be called when the Application no longer needs the bean reference.
+		8. If the Bean definition in the Configuration file contains a 'destroy-method' attribute, then the corresponding method definition in the Bean class will be called.
+	What is the Bean life cycle in Spring Bean Factory Container?
+		Bean life cycle in Spring Bean Factory Container is as follows:
+		The Spring container instantiates the bean from the bean’s definition in the XML file.
+		Spring populates all of the properties using the dependency injection, as specified in the bean definition.
+		The factory calls setBeanName() by passing the bean’s ID, if the bean implements the BeanNameAware interface.
+		The factory calls setBeanFactory() by passing an instance of itself, if the bean implements the BeanFactoryAware interface.
+		preProcessBeforeInitialization() methods are called if there are any BeanPostProcessors associated with the bean.
+		If an init-method is specified for the bean, then it will be called.
+		Finally, postProcessAfterInitialization() methods will be called if there are any BeanPostProcessors associated with the bean.
+	Describe the Spring bean lifecycle.
+		The lifecycle of a Spring bean consists the following steps:
+		Instantiation
+		Properties population
+		Call of setBeanName() method of BeanNameAware
+		Call of setBeanFactory() method of BeanFactoryAware
+		Call of setApplicationContext() of ApplicationContextAware
+		Pre-initialization with BeanPostProcessor
+		Call of afterPropertiesSet() method of InitializingBean
+		Custom init method
+		Post-initialization with BeanPostProcessor
+		Bean is ready to use
+		Call of destroy() method of DisposableBean
+		Custom destroy method
+		Numbers 11-12 are actual for all scopes except prototype, since Spring does not manage the complete lifecycle of a prototype bean: 
+		the container instantiates, configures, and otherwise assembles a prototype object and hands it to the client with no further record 
+		of that prototype instance.
+	Which steps of beans lifecycle can be overridden or controlled?
+		The init() method is called when the bean is loaded to the container via the init-method attribute in the xml configuration 
+		with the @PostConstruct annotation. The destroy() method is called when the bean is unloaded from the container, 
+		through the destroy-method attribute in the xml configuration with the @PreDestroy annotation. 
+		If a bean is a prototype-scoped, the client code must clean up objects and release expensive resources that the prototype beans are holding. 
+		To get the Spring container to release resources held by prototype-scoped beans, try using a custom BeanPostProcessor, 
+		which holds a reference to beans that need to be cleaned up.
+		A developer can implement various interfaces to invoke specific behavior during a bean’s life cycle, \
+		such as InitializingBean and DisposableBean, as well as BeanNameAware, BeanFactoryAware and ApplicationContextAware.r
+	What is Bean Factory, have you used XMLBeanFactory?
+		BeanFactory is factory Pattern which is based on IOC design principles.it is used to make a clear separation between application configuration and 
+		dependency from actual code. The XmlBeanFactory is one of the implementations of Bean Factory which we have used in our project.
+		The org.springframework.beans.factory.xml.XmlBeanFactory is used to create bean instance defined in our XML file.
+		BeanFactory factory = new XmlBeanFactory(new FileInputStream("beans.xml"));
+		Or
+		ClassPathResource resorce = new ClassPathResource("beans.xml"); 
+		XmlBeanFactory factory = new XmlBeanFactory(resorce);
+	What is a Spring Bean Factory? What are some of the implementations available?
+		A BeanFactory is the actual container which instantiates, configures and manages all Spring beans together with their dependencies. 
+		Bean factories are represented by the interface org.springframework.beans.factory.BeanFactory and its sub-interfaces including:
+		ApplicationContext
+		WebApplicationContext
+		AutowireCapableBeanFactory
+
+		All of which are implemented with:
+		AnnotationConfigWebApplicationContext
+		XmlWebApplicationContext
+		ClassPathXmlApplicationContext
+		FileSystemXmlApplicationContext
+		It’s important to note that implementations can correspond to multiple interfaces.
+	What is a Spring Application Context? What are some example usages of one?
+		An ApplicationContext is an interface extending BeanFactory’s functionality. In addition to the BeanFactory’s methods, 
+		ApplicationContext provides the ability to:
+		Load file resources by extending the ResourcePatternResolver interface
+		Publish events to registered listeners (via the ApplicationEventPublisher interface)
+		Resolve messages supporting internationalization (with the MessageSource interface).
+		It’s read-only while the application is running.
+		
+		The easiest way to create an ApplicationContent instance is:
+		ApplicationContext ctx = new FileSystemXmlApplicationContext("application.xml");
+		
+		Loading resources is done with:
+		ctx.getResources(String locationPattern);
+		ctx.getResource(String location);
+
+		Publishing events is as simple as:
+		ctx.publishEvent(ApplicationEvent event);
+		ctx.publishEvent(Object event);
+
+		Internationalization support messages can be done by:
+		ctx.getMessage(String code, Object[] args, String defaultMessage, Locale locale);
+		ctx.getMessage(String code, Object[] args, Locale locale);
+		ctx.getMessage(MessageSourceResolvable resolvable, Locale locale);
+	What are the difference between BeanFactory and ApplicationContext in Spring?
+		ApplicationContext is the preferred way of using spring because of the functionality provided by it.
+		ApplicationContext | BeanFactory
+		Here we can have more than one config files possible | In this only one config file or .xml file
+		Application contexts can publish events to beans that are registered as listeners | Don't support.
+		Support internationalization (I18N) messages | It’s not
+		Support application life-cycle events, and validation. | Doesn’t support.
+		Supports many enterprise services such as JNDI access, EJB integration, remoting | Doesn’t support.
+	What is AOP?
+		The core construct of AOP is the aspect, which encapsulates behaviors affecting multiple classes into reusable modules.
+		AOP is a programming technique that allows a developer to modularize crosscutting concerns, that cuts across the typical divisions of responsibility, 
+		such as logging and transaction management. 
+		Spring AOP, aspects are implemented using regular classes or regular classes annotated with the @Aspect annotation.
+	Explain Advice?
+		It’s an implementation of aspect; advice is inserted into an application at join points. 
+		Different types of advice include “around,” “before” and “after” advice
+	What are the joint Point and point cut?
+		Similar to Object-oriented programming, AOP is another popular programming concept which complements OOPS. 
+		A join point is an opportunity within the code for which we can apply an aspect. 
+		In Spring AOP, a join point always represents a method execution.
+
+		Pointcut: a predicate that matches join points. A pointcut is something that defines what join-points advice should be applied.
+	What is Bean wiring? How does autowiring work?
+		Bean wiring is the process of injection Spring Bean dependencies while initializing. 
+		It’s usually best practice to wire all dependencies explicitly, (with XML configuration, for example), 
+		but Spring also supports autowiring with the @Autowired annotation. 
+		To enable this annotation we need to put the context:annotation-config element into the Spring configuration file. 
+		To avoid conflicts in bean mapping while autowiring, the bean name has to be provided with the @Qualifier annotation.
+		
+		There are different ways to autowire a Spring Bean:p
+		byName - to use this type setter method for dependency injection, the variable name should be the same in both the 
+			class where the dependency will be injected and in the Spring configuration file.
+		byType - in order for this to function, there should be only one bean configured for that specific class.
+		Via constructor - similar to byType, but type is applied to constructor arguments.
+		Via autodetect - now obsolete, used in Spring 3.0 and earlier, this was used to autowire by constructor or byType.
+	Difference between @Autowired and @ Inject annotation in Spring?
+		The @Autowired annotation is used for auto-wiring in Spring framework. Autowiring is a process on which Spring framework figure out dependencies of a Spring bean, 
+		instead of you, a developer, explicitly specifying them in the application context file. 
+		You can annotate fields and constructor using @Autowired to tell Spring framework to find dependencies for you.
+		The @Inject annotation also serves the same purpose, but the main difference between them is that @Inject is a standard annotation for dependency injection 
+		and @Autowired is spring specific. Since Spring is not the only framework which provides dependency injection, 
+		in the future if you change your container and moves to another DI framework like Google Guice, you need to reconfigure your application.
+		You can potentially avoid that development effort by using standard annotations specified by JSR-330 e.g.  @Inject, @Named, @Qualifier, @Scope and @Singleton.
+		A bean declared to be auto-wired using @Inject will work in both Google Guice and Spring framework, 
+		and potentially any other DI container which supports JSR-330 annotations.
+	What are the different modules in spring?
+		Answer: spring has seven core modules
+		1.      The Core container module
+		2.      Application context module
+		3.      AOP module (Aspect Oriented Programming)
+		4.      JDBC abstraction and DAO module
+		5.      O/R mapping integration module (Object/Relational)
+		6.      Web module
+		7.      MVC framework module
+	What is the difference between @Controller and @RestController in Spring MVC?
+		Even though both are used to indicate that a Spring bean is a Controller in Spring MVC setup, 
+		@RestController is better when you are developing RESTful web services using Spring MVC framework. 
+		It's a combination of @Controller + @ResponseBody annotation which allows the controller to directly write the response 
+		and bypassing the view resolution process, which is not required for RESTful web service.
+		It also instructs DispatcherServlet to use different HttpMessageConverters to represent the response in the format client is expecting 
+		e.g. HttpMessageJackson2Convert to represent response in JSON format and JAXB based message converts to generate XML response.
+	Difference between @ReqeustParam and @PathVariable in Spring MVC?
+	Difference between @Component, @Service, @Controller, and @Repositoring annotation in Spring MVC?
+		From Spring 2.5 annotation-based dependency injection was introduced, which automatically scans and registers classes as Spring bean 
+		which is annotated using @Component annotation. This means you don't declare that bean using the <bean> tag and inject the dependency, 
+		it will be done automatically by Spring. This functionality was enabled and disabled using <context:component-scan> tag.
+		@Service, @Controller, and @Repository annotation are nothing but the specialized form of @Component annotation for certain situations. 
+		Instead of using @Component on a controller class in Spring MVC, we use @Controller, which is more readable and appropriate.
+		By using that annotation we do two things, first, we declare that this class is a Spring bean and should be created and maintained by Spring ApplicationContext, 
+		but also we indicate that its a controller in MVC setup. This latter property is used by web-specific tools and functionalities.
+	How many bean scopes are supported by Spring? Which is used by default?
+		The Spring Framework supports following scopes:
+		singleton (used by default): This means a single instance per Spring IoC container; not thread-safe
+		prototype: This means any number of object instances.
+		request: This scopes a bean definition to an HTTP request. Only valid in the context of a web-aware Spring ApplicationContext.
+		session: This scopes a bean definition to an HTTP session. Only valid in the context of a web-aware Spring ApplicationContext.
+		global-session: This scopes a bean definition to a global HTTP session. Only valid in the context of a web-aware Spring ApplicationContext.
+	In the context of Spring, what is a “stereotype”? What are the existing stereotypes and what is the difference between them?
+		Stereotype is a class-level annotation denoting the roles of types or methods in the overall architecture (at a conceptual level, 
+		rather than implementation). In Spring, these annotations live in the package org.springframework.stereotype.
+		Currently, this package has the following annotations:
+		@Component indicates that an annotated class is a “component”. 
+		Such classes are considered as candidates for auto-detection when using annotation-based configuration and classpath scanning.
+		@Controller indicates that an annotated class is a “Controller” (e.g. a web controller).
+		@Repository indicates that an annotated class is a “Repository”, originally defined by 
+		Domain-Driven Design (Evans, 2003) as “a mechanism for encapsulating storage, retrieval, and search behavior which emulates a collection of objects”.
+		@Service indicates that an annotated class is a “Service”, originally defined by 
+		Domain-Driven Design (Evans, 2003) as “an operation offered as an interface that stands alone in the model, with no encapsulated state.” 
+		May also indicate that a class is a Business Service Facade (in the Core J2EE patterns sense) or something similar.
+		These different types primarily allow a developer easily distinguish the purpose of the annotated classes. 
+		Starting with Spring 2.5, @Controller, @Repository and @Service serve as a specialization of @Component, allowing for 
+		implementation classes to be autodetected through classpath scanning.
+
+
+Boot
+	What does the @SpringBootApplication annotation do internally?
+		The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration, 
+		and @ComponentScan with their default attributes. 
+	How to disable a specific auto-configuration class?
+		You can use the exclude attribute of @EnableAutoConfiguration
+		If the class is not on the classpath, you can use the excludeName attribute of the annotation and specify the fully qualified name instead
+		By using property file spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+	Mention the possible sources of external configuration
+		Spring Boot uses environment variables, properties files, command-line arguments, YAML files, and system properties to 
+		mention the required configuration properties. Also, the @value annotation is used to gain access to the properties. 
+		So, the most possible sources of external configuration are as follows:
+		Application Properties – By default, Spring Boot searches for the application properties file or its YAML file in the current directory, 
+			classpath root or config directory to load the properties.
+		Command-line properties – Spring Boot provides command-line arguments and converts these arguments to properties. 
+			Then it adds them to the set of environment properties.
+		Profile-specific properties –  These properties are loaded from the application-{profile}.properties file or its YAML file. 
+			This file resides in the same location as that of the non-specific property files and the{profile} placeholder refers to an active profile
+	Why is Spring Data REST not recommended in real-world applications?
+		Spring Data REST is not recommended in real-world applications as you are exposing your database entities directly as REST Services. 
+		While designing RESTful services, the two most important things that we consider is the domain model and the consumers. 
+		But, while using Spring Data REST, none of these parameters are considered. The entities are directly exposed. 
+		So, I would just say, you can use Spring Data REST, for the initial evolution of the project
+
+SQL
+	What are the types of join and explain each?
+		join can be used to retrieve data and it depends on the relationship between tables.
+
+		Inner Join.
+			Inner join return rows when there is at least one match of rows between the tables.
+
+		Right Join.
+			Right join return rows which are common between the tables and all rows of Right hand side table. 
+			Simply, it returns all the rows from the right hand side table even though there are no matches in the left hand side table.
+
+		Left Join.
+			Left join return rows which are common between the tables and all rows of Left hand side table. 
+			Simply, it returns all the rows from Left hand side table even though there are no matches in the Right hand side table.
+
+		Full Join.
+			Full join return rows when there are matching rows in any one of the tables. 
+			This means, it returns all the rows from the left hand side table and all the rows from the right hand side table.
+	What is normalization and Denormalization.?
+		Normalization is the process of minimizing redundancy and dependency by organizing fields and table of a database. 
+		The main aim of Normalization is to add, delete or modify field that can be made in a single table.
+		DeNormalization is a technique used to access the data from higher to lower normal forms of database. 
+		It is also process of introducing redundancy into a table by incorporating data from the related tables.
+	What are all the different normalizations?
+		The normal forms can be divided into 5 forms, and they are explained below -.
+		
+		First Normal Form (1NF):.
+			This should remove all the duplicate columns from the table. 
+			Creation of tables for the related data and identification of unique columns.
+		Second Normal Form (2NF):.
+			Meeting all requirements of the first normal form. Placing the subsets of data in separate tables and 
+			Creation of relationships between the tables using primary keys.
+		Third Normal Form (3NF):.
+			This should meet all requirements of 2NF. Removing the columns which are not dependent on primary key constraints.
+		Fourth Normal Form (4NF):.
+			Meeting all the requirements of third normal form and it should not have multi- valued dependencies.
+
+
+	What is an Index? What are all the different types of indexes?
+
+		An index is performance tuning method of allowing faster retrieval of records from the table. 
+		An index creates an entry for each value and it will be faster to retrieve data.
+
+		There are three types of indexes -.
+		Unique Index.
+			This indexing does not allow the field to have duplicate values if the column is unique indexed. 
+			Unique index can be applied automatically when primary key is defined.
+		Clustered Index.
+			This type of index reorders the physical order of the table and search based on the key values. 
+			Each table can have only one clustered index.
+		NonClustered Index.
+			NonClustered Index does not alter the physical order of the table and maintains logical order of data. 
+			Each table can have 999 nonclustered indexes.
+
+
+
+
+Hibernate
+	What is lazy loading?
+		Lazy loading is defined as a technique in which objects are loaded on an on-demand basis. 
+		It has been enabled by default since the advent of Hibernate 3 to ensure that child objects are not loaded when the parent is.
+	Difference between lazy and eager loading, which one should be used when?
+	Explain the proxy object concept.
+
+	What is the difference between get and load in Hibernate?
+		Get will hit the database if object is not found in the cache and returned completely initialized object, 
+		which may involve several database call while load() method can return proxy if the object is not found in the cache and only hit database if 
+		any method other than getId() is called. This can save a lot of performance in some cases.
+		load() will throw an exception if an object with id passed to them is not found, but get() will return null.
+		Use the load() method, if you know the object exists, and get() method if you are not sure about the object's existence
+	What is the difference between save, persist and saveOrUpdate methods in Hibernate?
+		All three methods i.e. save(), saveOrUpdate() and persist() is used to save objects into database, but has subtle differences 
+		e.g. save() can only INSERT records but saveOrUpdate() can either INSERT or UPDATE records. 
+		Also, the return type of save() is a Serializable object, while return type of persist() method is void.
+	What is SessionFactory in Hibernate? is SessionFactory thread-safe?
+		SessionFactory, as the name suggests, is a factory to hibernate Session objects. 
+		SessionFactory is often built during start-up and used by application code to get the session object. 
+		It acts as a single data store and it's also thread-safe so that multiple threads can use the same SessionFactory. 
+		Usually, a Java JEE application has just one SessionFactory, and individual threads, which are servicing client’s requests 
+		obtain hibernate Session instances from this factory, that’s why any implementation of SessionFactory interface must be thread-safe.
+		Also, the internal state of SessionFactory, which contains all metadata about Object/Relational mapping is 
+		Immutable and can not be changed once created.
+	What is Session in Hibernate? Can we share a single Session among multiple threads in Hibernate?
+		Session represents a small unit of work in Hibernate, they maintain a connection with the database and they are not thread-safe, 
+		it means you can not share Hibernate Session between multiple threads. Though Session obtains database connection lazily 
+		it's good to close the session as soon as you are done with it.
+	What is the difference between sorted and ordered collection in hibernate?
+		A sorted collection is sorted in memory by using Java Comparator while an ordered collection uses the database's order by clause for ordering. 
+		For large data set it's better to use ordered collection to avoid any OutOfMemoryError in Java, by trying to sort them in memory
+	What is the requirement for a Java object to become a Hibernate entity object?
+		It should not be final and must provide a default, no-argument constructor.
+	What are different types of caches available in Hibernate?
+		Hibernate provides the out-of-box caching solution but there are many caches e.g. first level cache, second level cache, and query cache.
+		The first level cache is maintained at Session level and cannot be disabled
+		The second level cache is maintained at a SessionFactory level and shared by all sessions, it is also required to be configured 
+		with external cache provider like EhCache
+	What is the purpose of Session.beginTransaction()?
+		Hibernate keeps a log of every data exchange with the help of a transaction. Thereon, in case a new exchange of date is about to get initiated, 
+		the function Session.beginTransaction is executed in order to begin the transaction.
+	Can you detail out the various collection types in Hibernate?
+		There are five distinct collection types that are used in hibernate for one-to-many relationship mappings.
+		• Bag
+		• Set
+		• List
+		• Array
+		• Map
+
+Rest
+	Explain what is REST and RESTFUL?
+		REST represents REpresentational State Transfer; it is a relatively new aspect of writing web API.
+		RESTFUL is referred for web services written by applying REST architectural concept are called RESTful services, 
+		it focuses on system resources and how state of resource should be transported over HTTP protocol to different clients 
+		written in different language. 
+		In RESTFUL web service HTTP methods like GET, POST, PUT and DELETE can be used to perform CRUD operations.
+
+	What is your understanding of what are RESTful web services?
+
+		Just like SOAP (Simple Object Access Protocol), which is used to develop web services by the XML method, 
+		RESTful web services use web protocol i.e. HTTP protocol method. They have the feature like scalability, maintainability, 
+		help multiple application communication built on various programming languages, etc.
+
+		RESTful web service implementation defines the method of accessing various resources that are required by the client and 
+		he has sent the request to the server through the web browser.
+		
+		The important aspects of this implementation include:
+		Resources
+		Request Headers
+		Request Body
+		Response Body
+		Status codes
+	Mention what is the difference between AJAX and REST?
+		AJAX
+		In Ajax, the request are sent to the server by using XMLHttpRequest objects. 
+			The response is used by the JavaScript code to dynamically alter the current page
+		Ajax is a set of technology; it is a technique of dynamically updating parts of UI without having to reload the page
+		Ajax eliminates the interaction between the customer and server asynchronously
+
+		REST
+		REST have a URL structure and a request/response pattern the revolve around the use of resources
+		REST is a type of software architecture and a method for users to request data or information from servers
+		REST requires the interaction between the customer and server
+
+
+	Mention what is the difference between RPC or document style web services? How you determine to which one to choose?
+		In document style web services, we can transport an XML message as part of SOAP request which is not possible in RPC style web service. 
+		Document style web service is most appropriate in some application where XML message behaves as document and 
+		content of that document can alter and intention of web service does not rely on the content of XML message.
+
+	Mention what is the difference between SOAP and REST?
+
+		SOAP
+		SOAP is a protocol through which two computer communicates by sharing XML document
+		SOAP permits only XML
+		SOAP based reads cannot be cached
+		SOAP is like custom desktop application, closely connected to the server
+		SOAP is slower than REST
+		It runs on HTTP but envelopes the message
+
+		REST
+		Rest is a service architecture and design for network-based software architectures
+		REST supports many different data formats
+		REST reads can be cached
+		A REST client is more like a browser; it knows how to standardized methods and an application has to fit inside it
+		REST is faster than SOAP
+		It uses the HTTP headers to hold meta information
+	Name the protocol which is used by RESTful web services.
+		RESTful web services use a famous web protocol i.e. HTTP protocol. 
+		This serves as a medium of data communication between client and server. HTTP standard methods are used to access 
+		resources in RESTful web service architecture.
+
+	Explain the term ‘Addressing’ with respect to RESTful WEB service.
+		Just like we require an address with postal code to reach any person, in the same way, ‘Addressing’ locates resources 
+		that are present on the server for the purpose of hosting web services. 
+		This is usually done with URI i.e. Unified Resource Identifier.
+
+	Enlist features of RESTful web services.
+		Every RESTful web services should have the following features and characteristics that are enlisted below:
+
+		Based on the Client-Server representation.
+		Use of HTTP protocol for performing functions like fetching data from the web service, retrieving resources, execution of any query, etc.
+		The communication between the server and client is performed through the medium known as ‘messaging’.
+		Addressing of resources available on the server through URIs.
+		Based on the concept of statelessness where every client request and the response is independent of the other 
+			with complete assurance of providing required information.
+		Uses the concept of caching.
+		Works on the Uniform interface.
+	Explain messaging technique.
+		Messages are the mode of exchanging data for any type of communication to take place. 
+		In the same way, HTTP protocol plays the role of message communication between the client and server through HTTP Request and Response methods. 
+		HTTP request is sent by the client who contains information about the data and in turn, receives HTTP Response from the server.
+
+		Messages are the collection of information about the data i.e. Metadata.
+	What are the core components of the HTTP request and HTTP response?
+		The core components under HTTP Request are:
+		Verb: Includes methods like GET, PUT, POST, etc.
+		Uniform Resource Identifier for identifying the resources available on the server.
+		HTTP Version for specifying the HTTP version.
+		HTTP Request header for containing the information about the data.
+		HTTP Request body that contains the representation of the resources in use.
+
+		The core components under HTTP Response are:
+		Request Code: This contains various codes that determine the status of the server response.
+		HTTP Version for specifying the HTTP version.
+		HTTP Response header for containing the information about the data.
+		HTTP Response body that contains the representation of the resources in use.
+	Explain the term ‘Statelessness’ with respect to RESTful WEB service.
+		In REST, ST itself defines State Transfer and Statelessness means complete isolation. 
+		This means, the state of the client’s application is never stored on the server and is passed on.
+		In this process, the clients send all the information that is required for the server to fulfill the HTTP request that has been sent. 
+		Thus every client requests and the response is independent of the other with complete assurance of providing the required information.
+		Every client passes a ‘session identifier’ which also acts as an identifier for each session.
+	Enlist advantages and disadvantages of ‘Statelessness’.
+		Advantages:
+		Every method required for communication is identified as an independent method i.e. there are no dependencies to other methods.
+		Any previous communication with the client and server is not maintained and thus the whole process is very much simplified.
+		If any information or metadata used earlier in required in another method, then the client sends again that information with the HTTP request.
+		The HTTP protocol and REST web service, both shares the feature of statelessness.
+
+		Disadvantages:
+		In every HTTP request from the client, the availability of some information regarding the client state is required by the web service.
+	Enlist some important constraints for RESTful web services.
+		Below mentioned are some important constraints for RESTful web service:
+		There should be separate concerns for each server and client which will help to maintain the modularity within the application. 
+			This will also reduce the complexity and increase the scalability.
+		The client-server communication should be stateless, which means no previous information is used and the complete execution is done in isolation. 
+			In cases of failure, it also helps the client to recover.
+		In client-server communication, the HTTP response should be cacheable so that when required cached copy can be used 
+			which in turn enhances the scalability and performance of the server.
+		The fourth constraint is the uniform interface which allows client-server interaction to be easily understood. 
+			This constraint is further divided into four sub-constraints as:
+				Resource Identification
+				Resource Manipulation
+				Each message is easily understood and is self-descriptive.
+				Hypermedia, which is defined as the text with hyperlinks and when clicked, it moves to another application state.
+		Client-server communication should be done on a layered system and thus the client should only have knowledge about the intermediate level 
+		with which communication is being done,
+	What is a ‘Resource’?
+		Just like the ‘Object’ instance, we have learned in Object Orient Programming Language, in the same way, ‘Resource’ is defined as an 
+		object of a type which can be an image, HTML file, text data, and any type of dynamic data. 
+		There are varieties of representation formats available in order to represent a resource.
+		Resources are identified by logical URLs; it is the key element of a RESTful design. 
+		Unlike, SOAP web services in REST, you view the product data as a resource and this resource should contain all the required information.
+		Some most common Resources are enlisted below:
+		JSON
+		YAML
+		XML
+		HTML
+	Why proper representation of Resource is required?
+		Representation is very important because it determines the easy identification of resources. 
+		With proper representations of resource in the proper format, allows the client to easily understand the format.
+	Enlist some important points that should be kept in mind while designing Resources representation for RESTful web services.
+		As there are no restrictions on the format in which the resource representation is done but just that the main requirement is 
+		the format of the representation should be as per the client requirement.
+
+		A good resource representation is designed by considering the following main points:
+			The resource representation format should be easily understood by the client and server.
+			The representation should be complete regardless of its format structure, which may be complex or simple.
+			In the case of the link of the resources to other resources, such cases should also be considered and handled.
+	What is Caching?
+		Caching is the process in which server response is stored so that a cached copy can be used when required and there is no 
+		need for generating the same response again. This process not only reduces the server load but in turn 
+		increase the scalability and performance of the server. Only the client is able to cache the response and that too for a limited period of time.
+
+		Mentioned below are the header of the resources and their brief description so that they can be identified for the caching process:
+			Time and date of resource creation
+			Time and date of resource modification that usually stores the last detail.
+			Cache-control header
+			Time and date at which the cached resource will expire.
+			The age which determines the time from when the resource has been fetched.
+	Explain Cache-control header.
+		A standard Cache-control header can help in attaining cache ability. 
+		Enlisted below is the brief description of the various cache-control header:
+		Public: Resources that are marked as the public can be cached by any intermediate components between the client and the server.
+		Private: Resources that are marked as private can only be cached by the client.
+		No cache means that a particular resource cannot be cached and thus the whole process is stopped.
+	What are the best practices that are to be followed while designing RESTful web services?
+		Every input on the server should be validated.
+		Input should be well-formed.
+		Never pass any sensitive data through URL.
+		For any session, the user should be authenticated.
+		Only HTTP error messages should be used for indicating any fault.
+		Use message format that is easily understood and is required by the client.
+		Unified Resource Identifier should be descriptive and easily understood.
+	What is Payload?
+		The request data which is present in the body part of every HTTP message is referred to as ‘Payload’.  
+		In Restful web service, the payload can only be passed to the recipient through the POST method.
+		There is no limit of sending data as payload through the POST method but the only concern is that 
+		more data will consume more time and bandwidth. This may consume much of the user’s time also.
+	Enlist some of the HTTP methods with description.
+		GET: It requests a resource at the request URL. It should not contain a request body as it will be discarded. 
+			Maybe it can be cached locally or on the server.
+		POST: It submits information to the service for processing; it should typically return the modified or new resource
+		PUT: At the request URL it update the resource
+		DELETE: At the request URL it removes the resource
+		OPTIONS: It indicates which techniques are supported
+		HEAD: About the request URL it returns meta information
+	What is the difference between the PUT method and the POST method?
+		Result generated with the PUT method is always the same no matter how many times the operation is performed. 
+		On the other hand, the result generated by POST operation is always different every time.
+	What is your understanding about JAX-RS?
+		JAX-RS is defined as the Java API for RESTful web service. Among multiple libraries and framework, this is considered as 
+		the most suitable Java programming language based API which supports RESTful web service.
+		Some of the implementations of JAX-RS are:
+		Jersey (the most popular framework)
+		RESTEasy
+		Apache CFX
+		Play
+	What are HTTP status codes? Enlist few with meaning.
+		HTTP status codes basically are the representation of the status of the task that has been performed on the server, 
+		with the mode of some codes. Every code has their own meaning.
+
+		Some of the HTTP status codes with their meaning are as follows:
+		Code 200: This indicates success.
+		Code 201: This indicates resource has been successfully created.
+		Code 204: This indicates that there is no content in the response body.
+		Code 404: This indicates that there is no method available.
+
+
+
+
+
+Microservice
+
+	What Is Spring Cloud?
+		Spring Cloud, in microservices, is a system that provides integration with external systems. 
+		It is a short-lived framework that builds an application, fast. Being associated with the finite amount of data processing, 
+		it plays a very important role in microservice architectures.
+		
+		For typical use cases, Spring Cloud provides the out of the box experiences and a sets of extensive features mentioned below:
+		Versioned and distributed configuration.
+		Discovery of service registration.
+		Service to service calls.
+		Routing.
+		Circuit breakers and load balancing.
+		Cluster state and leadership election.
+		Global locks and distributed messaging.
+
+
+	Role of Actuator in Spring Boot
+		It is one of the most important features, which helps you to access the current state of an application that is running in a production environment. 
+		There are multiple metrics which can be used to check the current state. They also provide endpoints for RESTful web services 
+		which can be simply used to check the different metrics.
+
+
+	How Is Spring Security Implemented In a Spring Boot Application?
+		Minimal configuration is needed for implementation. All you need to do is add the spring-boot-starter-securitystarter in the pom.xml file. 
+		You will also need to create a Spring config class that will override the required method while extending the WebSecurityConfigurerAdapter 
+		to achieve security in the application. Here is some example code:
+
+		package com.gkatzioura.security.securityendpoints.config; 
+		import org.springframework.context.annotation.Configuration; 
+		import org.springframework.security.config.annotation.web.builders.HttpSecurity; 
+		import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter; 
+		@Configuration 
+		public class SecurityConfig extends WebSecurityConfigurerAdapter {     
+			@Override     
+			protected void configure(HttpSecurity http) throws Exception {         
+				http.authorizeRequests()             
+				.antMatchers("/welcome").permitAll()             
+				.anyRequest().authenticated()             
+				.and()             
+				.formLogin()             
+				.permitAll()             
+				.and()             
+				.logout()             
+				.permitAll();     
+			} 
+		}
+	Which Embedded Containers Are Supported by Spring Boot?
+		Whenever you are creating a Java application, deployment can be done via two methods:
+		Using an application container that is external.
+		Embedding the container inside your jar file.
+		Spring Boot contains Jetty, Tomcat, and Undertow servers, all of which are embedded.
+		Jetty – Used in a wide number of projects, Eclipse Jetty can be embedded in framework, application servers, tools, and clusters.
+		Tomcat – Apache Tomcat is an open source JavaServer Pages implementation which works well with embedded systems.
+		Undertow – A flexible and prominent web server that uses small single handlers to develop a web server.
+
+
+	What Is Semantic Monitoring?
+		It combines monitoring of the entire application along with automated tests. The primary benefit of Semantic Monitoring is to find out 
+		the factors which are more profitable to your business.
+		Semantic monitoring along with service layer monitoring approaches monitoring of microservices from a business point of view. 
+		Once an issue is detected, they allow faster isolation and bug triaging, thereby reducing the main time required to repair. 
+		It triages the service layer and transaction layer to figure out the transactions affected by availability or poor performance.
+	How Can You Set Up Service Discovery?
+		There are multiple ways to set up service discovery. I’ll choose the one that I think to be most efficient, Eureka by Netflix. 
+		It is a hassle free procedure that does not weigh much on the application. Plus, it supports numerous types of web applications.
+		Eureka configuration involves two steps – client configuration and server configuration.
+		
+		Client configuration can be done easily by using the property files. In the class path, Eureka searches for a eureka-client.properties file. 
+		It also searches for overrides caused by the environment in property files which are environment specific.
+
+		For server configuration, you have to configure the client first. Once that is done, the server fires up a client which is used to find other servers. 
+		The Eureka server, by default, uses the Client configuration to find the peer server.
+	Why Would You Opt for Microservices Architecture?
+		There are plenty of pros that are offered by a microservices architecture. Here are a few of them:
+		Microservices can adapt easily to other frameworks or technologies.
+		Failure of a single process does not affect the entire system.
+		Provides support to big enterprises as well as small teams.
+		Can be deployed independently and in relatively less time.
+	What is Coupling and Cohesion?
+		The coupling can be considered to be the measurement of strength between the dependencies of a component. 
+		Cohesion another measurement unit. More like a degree to which the elements inside a module remain bonded together.
+
+		A good Microservices application design always consists of low coupling and high cohesion.
+		When loosely coupled, a service knows very little about other. This keeps the services intact. 
+		In high cohesion, it becomes possible to keep all the related logic in a service. 
+		Otherwise, the services will try to communicate with each other, impacting the overall performance.
+	What Is OAuth?
+		Open Authorization Protocol, otherwise known as OAuth, helps to access client applications using third-party protocols like Facebook, 
+		GitHub etc via HTTP. You can also share resources between different sites without the requirement of credentials.
+		OAuth allows the account information of the end user to be used by a third party like Facebook while keeping it secure 
+		(without using or exposing the user’s password). It acts more like an intermediary on the user’s behalf while providing a token to the server 
+		for accessing the required information.
+	Why Do We Need Containers For Microservices?
+		To manage a microservice based application, containers are the easiest alternative. It helps the user to individually deploy and develop. 
+		You can also use Docker to encapsulate the microservice in the image of a container. Without any additional dependencies or effort, 
+		microservices can use these elements.
+	What Are Some Major Roadblocks For Microservices Testing?
+		Tester should have a thorough understanding of all the inbound and outbound processes before he starts writing the test cases for integration testing.
+		When independent teams are working on different functionalities, collaboration can prove to be quite a struggling task. 
+		It can be tough to find an idle time-window to perform a complete round of regression testing.
+		With an increasing number of microservices, the complexity of the system also increases.
+		During the transition from monolithic architecture, testers must ensure that there is no disruption between the internal 
+		communication among the components.
+	What Are The Fundamentals Of Microservices Design?
+		Define a scope
+		Combine loose coupling with high cohesion
+		Create a unique service which will act as an identifying source, much like a unique key in a database table
+		Creating the correct API and take special care during integration.
+		Restrict access to data and limit it to the required level
+		Maintain a smooth flow between requests and response
+		Automate most processes to reduce time complexity
+		Keep the number of tables to a minimum level to reduce space complexity
+		Monitor the architecture constantly and fix any flaw when detected.
+		Data stores should be separated for each microservices.
+		For each microservices, there should be an isolated build.
+		Deploy microservices into containers.
+		Servers should be treated as stateless.
+	What are Reactive Extensions in Microservices?
+		Reactive Extensions is also called Rx. It is a design pattern which allows collecting results by calling multiple services and then 
+		compile a combined response. Rx is a popular tool in distributed systems which works exactly opposite to legacy flows.
+
+
+Servlet/JSP
+
+	What is JSESSIONID in Java? When does JSESSIONID gets created ?
+		JSESSION id is a cookie which is used to manage session in Java web application. 
+		JSESSIONID is created by Web Container whenever a new session is created.
+
+
+	What is difference between include action and include directive in JSP?
+		Include action is request time inclusion while include directive is translation time inclusion of another resource e.g. JSP or html pages.
+		Include Directive	Include Action
+		Includes content at page translation time	Includes content at page request time
+		Preferred in Static Pages	Preferred in Dynamic Pages
+		Includes Original content of the page	Does not include Original content of the page
+		Cannot invoke include() method	Can invoke include() method
+		Page size can be increased in the run-time	Page size is fixed
+
+	Difference between sendredirect and forward in Servlet ?
+	How do you define application wide error page in JSP?
+		You can define two kinds of error pages in Java web application, one is using tag <error-page> in web.xml and 
+		other is by using error page JSP which uses isErrorpage to declare that this jsp page can be used as error page. 
+		Other JSP uses that page by using attribute errorpage="error.jsp". Whenever you get an unhandled exception in JSP, 
+		request will be routed to error page. See How to use error page in JSP for detailed answer of this question.
+
+
+	What are the different Session Tracking Techniques?
+		There are basically four types of techniques which are given below:
+		a) Cookies: Cookies are small information which is added to multiple client requests.
+		Example: One request comes to the server, the server adds some cookies with the response, now when again the same 
+		client sends the request to the server, the server recognizes the user.
+		b) Hidden Form Field: Here we use a hidden text field for maintaining the state of the user.
+		c) URL Rewriting: Here we give an extra link for the next servlet to be mapped.
+		d) Http Session: Here a specific ID is generated for each user, so a server can recognize the user.
+
+
+	Mention the Implicit Objects in a JSP.
+		Request
+		Response
+		Application
+		Exception
+		Config
+		Page
+		Session
+		PageContext
+		Out
+
+	Can you stop Multiple Submits to a Web Page that are initiated by clicking to refresh button?
+		Yes, This issue can be solved by using a Post/Redirect/Get or a PRG pattern.
+
+		A form filed by the user gets submitted to the server using POST/GET method.
+		The state in the database and business model are updated.
+		A redirect response is used to reply by the servlet for a view page.
+		A view is loaded by the browser using the GET command and no user data is sent.
+		This is safe from multiple submits as it is a separate JSP page.
+
+
+	What are the different Life-Cycle methods?
+		jspInit(): Container calls jspInit() method to initialize servlet instance. It is called once for the servlet instance and preceded every other method.
+		_jspService(): Container calls _jspService() method for each request and passes it on to the objects.
+		jspDestroy(): Container calls the jspDestroy() just before destruction of the instance.
+
+

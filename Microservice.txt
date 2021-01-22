@@ -1,0 +1,126 @@
+What Is Spring Cloud?
+ Spring Cloud, in microservices, is a system that provides integration with external systems. It is a short-lived framework that builds an application, fast. Being associated with the finite amount of data processing, it plays a very important role in microservice architectures.
+For typical use cases, Spring Cloud provides the out of the box experiences and a sets of extensive features mentioned below:
+
+Versioned and distributed configuration.
+Discovery of service registration.
+Service to service calls.
+Routing.
+Circuit breakers and load balancing.
+Cluster state and leadership election.
+Global locks and distributed messaging.
+
+
+Role of Actuator in Spring Boot
+It is one of the most important features, which helps you to access the current state of an application that is running in a production environment. There are multiple metrics which can be used to check the current state. They also provide endpoints for RESTful web services which can be simply used to check the different metrics.
+
+
+How Is Spring Security Implemented In a Spring Boot Application?
+Minimal configuration is needed for implementation. All you need to do is add thespring-boot-starter-securitystarter in the pom.xml file. You will also need to create a Spring config class that will override the required method while extending the WebSecurityConfigurerAdapter to achieve security in the application. Here is some example code:
+
+package com.gkatzioura.security.securityendpoints.config; 
+import org.springframework.context.annotation.Configuration; 
+import org.springframework.security.config.annotation.web.builders.HttpSecurity; 
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter; 
+@Configuration 
+public class SecurityConfig extends WebSecurityConfigurerAdapter {     
+@Override     
+protected void configure(HttpSecurity http) throws Exception {         
+http.authorizeRequests()             
+.antMatchers("/welcome").permitAll()             
+.anyRequest().authenticated()             
+.and()             
+.formLogin()             
+.permitAll()             
+.and()             
+.logout()             
+.permitAll();     
+} 
+}
+
+
+Which Embedded Containers Are Supported by Spring Boot?
+Whenever you are creating a Java application, deployment can be done via two methods:
+
+Using an application container that is external.
+Embedding the container inside your jar file.
+Spring Boot contains Jetty, Tomcat, and Undertow servers, all of which are embedded.
+
+Jetty – Used in a wide number of projects, Eclipse Jetty can be embedded in framework, application servers, tools, and clusters.
+Tomcat – Apache Tomcat is an open source JavaServer Pages implementation which works well with embedded systems.
+Undertow – A flexible and prominent web server that uses small single handlers to develop a web server.
+
+
+What Is Semantic Monitoring?
+It combines monitoring of the entire application along with automated tests. The primary benefit of Semantic Monitoring is to find out the factors which are more profitable to your business.
+
+Semantic monitoring along with service layer monitoring approaches monitoring of microservices from a business point of view. Once an issue is detected, they allow faster isolation and bug triaging, thereby reducing the main time required to repair. It triages the service layer and transaction layer to figure out the transactions affected by availability or poor performance.
+
+
+How Can You Set Up Service Discovery?
+There are multiple ways to set up service discovery. I’ll choose the one that I think to be most efficient, Eureka by Netflix. It is a hassle free procedure that does not weigh much on the application. Plus, it supports numerous types of web applications.
+
+Eureka configuration involves two steps – client configuration and server configuration.
+Client configuration can be done easily by using the property files. In the clas spath, Eureka searches for a eureka-client.properties file. It also searches for overrides caused by the environment in property files which are environment specific.
+
+For server configuration, you have to configure the client first. Once that is done, the server fires up a client which is used to find other servers. The Eureka server, by default, uses the Client configuration to find the peer server.
+
+
+Why Would You Opt for Microservices Architecture?
+This is a very common microservices interview question which you should be ready for! There are plenty of pros that are offered by a microservices architecture. Here are a few of them:
+
+Microservices can adapt easily to other frameworks or technologies.
+Failure of a single process does not affect the entire system.
+Provides support to big enterprises as well as small teams.
+Can be deployed independently and in relatively less time.
+
+
+
+What is Coupling and Cohesion?
+The coupling can be considered to be the measurement of strength between the dependencies of a component. A good Microservices application design always consists of low coupling and high cohesion.
+Cohesion another measurement unit. More like a degree to which the elements inside a module remain bonded together.
+An important key to design microservices is a composition of low coupling along with high cohesion. When loosely coupled, a service knows very little about other. This keeps the services intact. In high cohesion, it becomes possible to keep all the related logic in a service. Otherwise, the services will try to communicate with each other, impacting the overall performance.
+
+
+What Is OAuth?
+Open Authorization Protocol, otherwise known as OAuth, helps to access client applications using third-party protocols like Facebook, GitHub etc via HTTP. You can also share resources between different sites without the requirement of credentials.
+OAuth allows the account information of the end user to be used by a third party like Facebook while keeping it secure (without using or exposing the user’s password). It acts more like an intermediary on the user’s behalf while providing a token to the server for accessing the required information.
+
+
+Why Do We Need Containers For Microservices?
+To manage a microservice based application, containers are the easiest alternative. It helps the user to individually deploy and develop. You can also use Docker to encapsulate the microservice in the image of a container. Without any additional dependencies or effort, microservices can use these elements.
+
+
+What Are Some Major Roadblocks For Microservices Testing?
+
+Tester should have a thorough understanding of all the inbound and outbound processes before he starts writing the test cases for integration testing.
+When independent teams are working on different functionalities, collaboration can prove to be quite a struggling task. It can be tough to find an idle time-window to perform a complete round of regression testing.
+With an increasing number of microservices, the complexity of the system also increases.
+During the transition from monolithic architecture, testers must ensure that there is no disruption between the internal communication among the components.
+
+
+
+What Are The Fundamentals Of Microservices Design?
+Here is what you need to keep in mind while answering to it:
+
+Define a scope
+Combine loose coupling with high cohesion
+Create a unique service which will act as an identifying source, much like a unique key in a database table
+Creating the correct API and take special care during integration.
+Restrict access to data and limit it to the required level
+Maintain a smooth flow between requests and response
+Automate most processes to reduce time complexity
+Keep the number of tables to a minimum level to reduce space complexity
+Monitor the architecture constantly and fix any flaw when detected.
+Data stores should be separated for each microservices.
+For each microservices, there should be an isolated build.
+Deploy microservices into containers.
+Servers should be treated as stateless.
+
+
+
+What are Reactive Extensions in Microservices?
+
+Reactive Extensions is also called Rx. It is a design pattern which allows collecting results by calling multiple services and then compile a combined response. Rx is a popular tool in distributed systems which works exactly opposite to legacy flows.
+
+

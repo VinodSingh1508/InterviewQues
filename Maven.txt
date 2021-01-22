@@ -1,0 +1,56 @@
+What is POM?
+POM stands for Project Object Model. In Maven, it is a fundamental Unit of Work and it is an XML file. You can find it in the base directory of the project. It consists of information about the project and various configuration details used by Maven to build the project(s).
+
+What information does POM contain?
+POM contains the following configuration information -
+
+project dependencies
+plugins
+goals
+build profiles
+project version
+developers
+mailing list
+
+What types of Maven repository?
+Maven repositories are of three types –
+
+Local: Maven local repository is a folder location that is present on your machine. It is created when you run any maven command for the first time. Maven local repository is a location where you can find your project’s all dependencies (library jars, plugin jars etc).
+
+Central: It is a repository provided by the Maven community. It contains a huge collection of commonly used libraries. When Maven does not find any dependency in local repository, it starts searching in central repository using the following URL: http://repo1.maven.org/maven2/.
+
+Remote: Sometimes, Maven is not able to find a mentioned dependency in the central repository as well then it stops the build process and an output error message is displayed on the console. To avoid such a situation, Maven provides the idea of Remote Repository which is nothing but the developer’s own custom repository containing required libraries or other project jars.
+
+
+
+List out the dependency scope in Maven?
+
+The various dependency scope used in Maven are:
+
+Compile: It is the default scope, and it indicates what dependency is available in the classpath of the project
+Provided: It indicates that the dependency is provided by JDK or web server or container at runtime
+Runtime: This tells that the dependency is not needed for compilation but is required during execution
+Test: It says dependency is available only for the test compilation and execution phases
+System: It indicates you have to provide the system path
+Import: This indicates that the identified or specified POM should be replaced with the dependencies in that POM’s section
+
+List out what are the build phases in Maven?
+
+Build phases in Maven are
+
+Validate
+Compile
+Test
+Package
+Install
+Deploy
+
+Explain what would the “jar: jar” goal do?
+
+jar: jar will not recompile sources; it will imply just create a JAR from the target/classes directory considering that everything else has been done
+
+
+For POM what are the minimum required elements?
+
+The minimum required elements for POM are project root, modelVersion, groupID, artifactID and version.
+

@@ -1,0 +1,35 @@
+What do you understand by NoSQL databases? Is MongoDB a NoSQL database? explain.
+At the present time, the internet is loaded with big data, big users, big complexity etc. and also becoming more complex day by day. NoSQL is answer of all these problems, It is not a traditional database management system, not even a relational database management system (RDBMS). NoSQL stands for "Not Only SQL". NoSQL is a type of database that can handle and sort all type of unstructured, messy and complicated data. It is just a new way to think about the database.
+
+Yes. MongoDB is a NoSQL database.
+
+
+What are the different types of NoSQL databases? Give some example.
+NoSQL database can be classified as 4 basic types:
+
+Key value store NoSQL database
+Document store NoSQL database
+Column store NoSQL database
+Graph base NoSQL databse
+There are many NoSQL databases. MongoDB, Cassandra, CouchBD, Hypertable, Redis, Riak, Neo4j, HBASE, Couchbase, MemcacheDB, Voldemort, RevenDB etc. are the examples of NoSQL databases
+
+
+What is sharding in MongoDB?
+In MongoDB, Sharding is a procedure of storing data records across multiple machines. It is a MongoDB approach to meet the demands of data growth. It creates horizontal partition of data in a database or search engine. Each partition is referred as shard or database shard.
+
+
+In which format MongoDB represents document structure?
+MongoDB uses BSON to represent document structures.
+
+How does MongoDB provide concurrency?
+MongoDB uses reader-writer locks for concurrency. Reader-writer locks allow concurrent readers shared access to a resource, such as a database or collection, but give exclusive access to a single write operation
+
+
+What is the difference between MongoDB and Redis database?
+Difference between MongoDB and Redis:
+
+Redis is faster than MongoDB.
+Redis has a key-value storage whereas MongoDB has a document type storage.
+Redis is hard to code but MongoDB is easy.
+
+

@@ -1,0 +1,64 @@
+What is the difference between get and load in Hibernate?
+Main difference between get and load is that, get will hit the database if object is not found in the cache and returned completely initialized object, which may involve several database call while load() method can return proxy if the object is not found in the cache and only hit database if any method other than getId() is called. This can save a lot of performance in some cases.
+The key difference between the get() and load() method is that load() will throw an exception if an object with id passed to them is not found, but get() will return null.
+Use the load() method, if you know the object exists, and get() method if you are not sure about the object's existence
+
+What is the difference between save, persist and saveOrUpdate methods in Hibernate?
+All three methods i.e. save(), saveOrUpdate() and persist() is used to save objects into database, but has subtle differences e.g. save() can only INSERT records but saveOrUpdate() can either INSERT or UPDATE records. 
+
+Also, the return type of save() is a Serializable object, while return type of persist() method is void.
+
+
+What is SessionFactory in Hibernate? is SessionFactory thread-safe?
+SessionFactory, as the name suggests, is a factory to hibernate Session objects. SessionFactory is often built during start-up and used by application code to get the session object. It acts as a single data store and it's also thread-safe so that multiple threads can use the same SessionFactory. 
+
+Usually, a Java JEE application has just one SessionFactory, and individual threads, which are servicing client’s requests obtain hibernate Session instances from this factory, that’s why any implementation of SessionFactory interface must be thread-safe.
+
+Also, the internal state of SessionFactory, which contains all metadata about Object/Relational mapping is Immutable and can not be changed once created.
+
+
+
+What is Session in Hibernate? Can we share a single Session among multiple threads in Hibernate?
+Session represents a small unit of work in Hibernate, they maintain a connection with the database and they are not thread-safe, it means you can not share Hibernate Session between multiple threads. Though Session obtains database connection lazily it's good to close the session as soon as you are done with it.
+
+
+
+What is the difference between sorted and ordered collection in hibernate?
+A sorted collection is sorted in memory by using Java Comparator while an ordered collection uses the database's order by clause for ordering. For large data set it's better to use ordered collection to avoid any OutOfMemoryError in Java, by trying to sort them in memory
+
+
+What is the requirement for a Java object to become a Hibernate entity object? (detailed answer)
+It should not be final and must provide a default, no-argument constructor. See the detailed answer to learn more about the special requirement for a Java object to become a Hibernate Entity.
+
+
+
+What are different types of caches available in Hibernate? (detailed answer)
+Hibernate provides the out-of-box caching solution but there are many caches e.g. first level cache, second level cache, and query cache.
+
+The first level cache is maintained at Session level and cannot be disabled but the second level cache is required to be configured with external cache provider like EhCache
+The first level cache is maintained at Session level while the second level cache is maintained at a SessionFactory level and shared by all sessions.
+
+What is the purpose of Session.beginTransaction()?
+
+Hibernate keeps a log of every data exchange with the help of a transaction. Thereon, in case a new exchange of date is about to get initiated, the function Session.beginTransaction is executed in order to begin the transaction.
+
+What is lazy loading?
+
+Lazy loading is defined as a technique in which objects are loaded on an on-demand basis. It has been enabled by default since the advent of Hibernate 3 to ensure that child objects are not loaded when the parent is.
+
+
+
+Can you detail out the various collection types in Hibernate?
+
+There are five distinct collection types that are used in hibernate for one-to-many relationship mappings.
+• Bag
+• Set
+• List
+• Array
+• Map
+
+
+
+
+
+

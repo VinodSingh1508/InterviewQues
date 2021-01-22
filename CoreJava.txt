@@ -1,0 +1,140 @@
+Question: What does the following Java program print?
+public class Test {
+    public static void main(String[] args) {
+        System.out.println(Math.min(Double.MIN_VALUE, 0.0d));
+    }
+}
+Answer: This question is tricky because unlike the Integer, where MIN_VALUE is negative, both the MAX_VALUE and MIN_VALUE of the Double class are positive numbers. The Double.MIN_VALUE is 2^(-1074), a double constant whose magnitude is the least among all double values. So unlike the obvious answer, this program will print 0.0 because Double.MIN_VALUE is greater than 0. I have asked this question to Java developer having experience up to 3 to 5 years and surprisingly almost 70% candidate got it wrong.
+
+
+What will happen if you put return statement or System.exit () on try or catch block? Will finally block execute?
+This is a very popular tricky Java question and it's tricky because many programmers think that no matter what, but the finally block will always execute. This question challenge that concept by putting a return statement in the try or catch block or calling System.exit() from try or catch block. Answer of this tricky question in Java is that finally block will execute even if you put a return statement in the try block or catch block but finally block won't run if you call System.exit() from try or catch block.
+
+
+Question: Can you override a private or static method in Java?
+Another popular Java tricky question, As I said method overriding is a good topic to ask trick questions in Java. Anyway, you can not override a private or static method in Java, if you create a similar method with same return type and same method arguments in child class then it will hide the superclass method, this is known as method hiding.
+Similarly, you cannot override a private method in sub class because it's not accessible there, what you do is create another private method with the same name in the child class. See Can you override a private method in Java or more details.
+
+
+
+Question: What do the expression 1.0 / 0.0 will return? will it throw Exception? any compile time error?
+Answer: This is another tricky question from Double class. Though Java developer knows about the double primitive type and Double class, while doing floating point arithmetic they don't pay enough attention to Double.INFINITY, NaN, and -0.0 and other rules that govern the arithmetic calculations involving them. The simple answer to this question is that it will not throw ArithmeticExcpetion and return Double.INFINITY.
+
+Also, note that the comparison x == Double.NaN always evaluates to false, even if x itself is a NaN. To test if x is a NaN, one should use the method call Double.isNaN(x) to check if given number is NaN or not. If you know SQL, this is very close to NULL there.
+
+
+What will happen if we put a key object in a HashMap which is already there?
+This tricky Java question is part of another frequently asked question, How HashMap works in Java. HashMap is also a popular topic to create confusing and tricky question in Java. Answer of this question is if you put the same key again then it will replace the old mapping because HashMap doesn't allow duplicate keys. The Same key will result in the same hashcode and will end up at the same position in the bucket.
+
+ Each bucket contains a linked list of Map.Entry object, which contains both Key and Value. Now Java will take the Key object from each entry and compare with this new key using equals() method, if that return true then value object in that entry will be replaced by new value
+
+
+If a method throws NullPointerException in the superclass, can we override it with a method which throws RuntimeException?
+One more tricky Java questions from the overloading and overriding concept. The answer is you can very well throw superclass of RuntimeException in overridden method, but you can not do same if its checked Exception. See Rules of method overriding in Java for more details.
+
+How do you ensure that N thread can access N resources without deadlock?
+If you are not well versed in writing multi-threading code then this is a real tricky question for you. This Java question can be tricky even for the experienced and senior programmer, who are not really exposed to deadlock and race conditions. The key point here is ordering, if you acquire resources in a particular order and release resources in the reverse order you can prevent deadlock.
+
+What Methods Does the Object Class Have?
+  protected Object clone() throws CloneNotSupportedException
+Creates and returns a copy of this object.
+public boolean equals(Object obj)
+Indicates whether some other object is “equal to” this one.
+protected void finalize() throws Throwable
+Called by the garbage collector on an object when garbagecollection determines that there are no more references to the object.
+public final Class getClass()
+Returns the runtime class of an object.
+public int hashCode()
+Returns a hash code value for the object.
+public String toString()
+Returns a string representation of the object.
+The notify, notifyAll, and wait methods of Object all play a part in synchronizing the activities of independently running threads in a program, which is discussed in a later lesson and won’t be covered here. There are five of these methods:
+public final void notify()
+public final void notifyAll()
+public final void wait()
+public final void wait(long timeout)
+public final void wait(long timeout, int nanos)
+
+How Can You Make a Class Immutable?
+I think this is a quite difficult question. You need to do several modifications on your class to achive immutability:
+
+Declare the class as final so it can’t be extended.
+Make all fields private so that direct access is not allowed.
+Don’t provide setter methods for variables
+Make all mutable fields final so that it’s value can be assigned only once.
+Initialize all the fields via a constructor performing a deep copy.
+Perform cloning of objects in the getter methods to return a copy rather than returning the actual object reference.
+
+
+How does Java enable high performance?
+What is JIT compiler in Java?
+JIT stands for Just-In-Time compiler in Java. It is a program that helps in converting the Java bytecode into instructions that are sent directly to the processor. By default, the JIT compiler is enabled in Java and is activated whenever a Java method is invoked. The JIT compiler then compiles the bytecode of the invoked method into native machine code, compiling it “just in time” to execute. Once the method has been compiled, the JVM summons the compiled code of that method directly rather than interpreting it. This is why it is often responsible for the performance optimization of Java applications at the run time.
+
+
+Difference between HashMap and HashTable.
+
+Answer: The difference between HashMap and HashTable can be seen below:
+
+HashMap	HashTable
+Methods are not synchronized	Key methods are synchronized
+Not thread safety	Thread safety
+Iterator is used to iterate the values	Enumerator is used to iterate the values
+Allows one null key and multiple null values	Doesn’t allow anything that is null
+Performance is high than HashTable	Performance is slow
+
+
+Difference between HashSet and TreeSet.
+
+Answer: The difference between HashSet and TreeSet can be seen below:
+
+HashSet	TreeSet
+Inserted elements are in random order	Maintains the elements in the sorted order
+Can able to store null objects	Couldn’t store null objects
+Performance is fast	Performance is slow
+
+What are the types of Exceptions?
+
+Answer: There are two types of Exceptions. They are explained below in detail.
+
+a) Checked Exception:
+
+These exceptions are checked by the compiler at the time of compilation. Classes that extend Throwable class except Runtime exception and Error are called checked Exception.
+
+Checked Exceptions must either declare the exception using throws keyword (or) surrounded by appropriate try/catch.
+
+For Example, ClassNotFound Exception
+
+b) Unchecked Exception:
+
+These exceptions are not checked during the compile time by the compiler.  The compiler doesn’t force to handle these exceptions. It includes:
+
+Arithmetic Exception
+ArrayIndexOutOfBounds Exception
+
+
+What are the differences between Heap and Stack Memory in Java?
+The major difference between Heap and Stack memory are:
+
+Features	Stack	Heap
+Memory	Stack memory is used only by one thread of execution.	Heap memory is used by all the parts of the application.
+Access	Stack memory can’t be accessed by other threads.	Objects stored in the heap are globally accessible.
+Memory Management	Follows LIFO manner to free memory.	Memory management is based on the generation associated with each object.
+Lifetime	Exists until the end of execution of the thread.	Heap memory lives from the start till the end of application execution.
+Usage	Stack memory only contains local primitive and reference variables to objects in heap space.	Whenever an object is created, it’s always stored in the Heap space.
+
+
+What is a classloader in Java?
+The Java ClassLoader is a subset of JVM (Java Virtual Machine) that is responsible for loading the class files. Whenever a Java program is executed it is first loaded by the classloader. Java provides three built-in classloaders:
+
+Bootstrap ClassLoader
+Extension ClassLoader
+System/Application ClassLoader
+
+
+
+
+
+
+
+
+“constant string pool”, ways to create java objects, 
